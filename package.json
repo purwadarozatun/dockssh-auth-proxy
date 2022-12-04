@@ -1,0 +1,23 @@
+{
+  "name": "cobassh",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.8.15",
+    "dockerode": "^3.3.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "ldap-authentication": "^2.3.2",
+    "ldapjs": "^2.3.3",
+    "ldapjs-client": "^0.1.1",
+    "node-freeipa": "^2.4.0",
+    "ssh2": "^1.11.0"
+  }
+}
