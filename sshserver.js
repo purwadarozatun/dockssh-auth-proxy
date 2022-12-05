@@ -30,6 +30,7 @@ const loadSshServer = () => {
                             userPassword: ctx.password,
                         })
                     } catch (error) {
+                        console.log(error)
                         allowed = false
                     }
                     break;
@@ -52,10 +53,11 @@ const loadSshServer = () => {
             });
         }).on('close', () => {
             console.log('Client disconnected');
-        }).on('error', () => {
+        }).on('error', (error) => {
+            console.log(error)
             console.log('Client disconnected');
         });
-    }).listen(process.env.SSH_PORT, '127.0.0.1', function () {
+    }).listen(process.env.SSH_PORT, '0.0.0.0', function () {
         console.log('Listening on port ' + this.address().port);
     });
 }
