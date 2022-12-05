@@ -6,11 +6,16 @@ const { authenticate } = require('ldap-authentication');
 
 
 const loadSshServer = () => {
-    var username = ""
+    var sessionFactory = sshhandler("", "")
     new Server({
         port: 9022,
         hostKeys: [readFileSync('id_rsa')]
     }, (client) => {
+        var session = sessionFactory.instance()
+
+        session.sessdata.username = ""
+        session.sessdata.container = ""
+
         console.log('Client connected!');
 
         client.on('authentication', async (ctx) => {
@@ -39,7 +44,9 @@ const loadSshServer = () => {
 
             if (allowed) {
 
-                username = ctx.username
+                session.sessdata.username = ctx.username
+                session.sessdata.container = ctx.username
+
                 ctx.accept();
             }
             else
@@ -48,7 +55,7 @@ const loadSshServer = () => {
             console.log('Client authenticated!');
 
             client.on('session', (accept, reject) => {
-                sshhandler.execDocker(accept, reject, username)
+                session.myhandler(accept, reject)()
 
             });
         }).on('close', () => {
